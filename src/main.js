@@ -64,3 +64,21 @@ function starr(string, multiplier) {
 	
 	return array;
 }
+
+function jarr() {
+	let joint = [];
+
+	[].forEach.call(arguments, (z) => {
+		z.forEach((x) => joint.push(x));
+	});
+
+	return joint;
+}
+
+/**
+ * @param {number} max
+ * @param {number} min
+ */
+function random(max, min = 1) {
+	return Math.floor((Math.random() * max) + min);
+}
