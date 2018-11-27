@@ -14,20 +14,35 @@ function getDropdown(type = "universe") {
 	switch (type) {
 		case "universe": {
 			dropdown.addEventListener("click", () => {
-				addDropdown(dropdown, "galaxy");
-				addDropdown(dropdown, "galaxy");
-				addDropdown(dropdown, "galaxy");
-				addDropdown(dropdown, "galaxy");
-				addDropdown(dropdown, "galaxy");
+				addDropdown(dropdown, ["galaxy", "galaxy", "galaxy", "galaxy", "galaxy"]);
 			});
 		} break;
 
 		case "galaxy": {
 			dropdown.addEventListener("click", () => {
-				dropdown.innerText = "aaaa";
+				addDropdown(dropdown, ["universe"]);
 			});
 		} break;
 	}
 
 	return dropdown;
+}
+
+
+/**
+ * @param {HTMLElement} parent
+ * @param {array} types
+ */
+function addDropdown(parent, types) {
+	let content = document.createElement("div");
+	content.classList.add("content");
+
+	types.forEach((type) => {
+		let dropdown = getDropdown(type);
+		content.appendChild(dropdown);
+	});
+
+	parent.parentElement.insertBefore(parent.cloneNode(true), parent);
+	parent.parentElement.insertBefore(content, parent);
+	parent.remove();
 }
