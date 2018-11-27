@@ -12,6 +12,7 @@ body {
 	background: #1c1c1c;
 	color: #ddd;
 	font-size: 1em;
+	overflow-x: hidden;
 }
 
 
@@ -34,7 +35,6 @@ body {
 	display: flex;
 	align-items: center;
 	cursor: pointer;
-	transition: color 0.2s;
 }
 
 .dropdown:hover {
