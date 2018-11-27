@@ -9,20 +9,24 @@ function getDropdown(type = "universe") {
 	let dropdown = document.createElement("div");
 	dropdown.classList.add("dropdown");
 
-	dropdown.innerText = type[0].toUpperCase() + type.substring(1);
+	dropdown.innerText = type;
 
 	switch (type) {
 		case "universe": {
 			dropdown.addEventListener("click", () => {
-				addDropdown(dropdown, ["galaxy", "galaxy", "galaxy", "galaxy", "galaxy"]);
+				addDropdown(dropdown, starr("galactic supercluster", 5));
 			});
 		} break;
 
-		case "galaxy": {
+		case "galactic supercluster": {
 			dropdown.addEventListener("click", () => {
-				addDropdown(dropdown, ["universe"]);
+				addDropdown(dropdown, starr("galaxy", 5));
 			});
 		} break;
+
+		default: {
+			throw new Error(`Invalid dropdown type: "${type}"`);
+		}
 	}
 
 	return dropdown;
@@ -45,4 +49,18 @@ function addDropdown(parent, types) {
 	parent.parentElement.insertBefore(parent.cloneNode(true), parent);
 	parent.parentElement.insertBefore(content, parent);
 	parent.remove();
+}
+
+/**
+ * @param {string} string 
+ * @param {number} multiplier 
+ */
+function starr(string, multiplier) {
+	let array = [];
+	
+	for (let i = 0; i < multiplier; i++) {
+		array.push(string);
+	}
+	
+	return array;
 }
