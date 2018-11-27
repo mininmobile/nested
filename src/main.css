@@ -1,14 +1,59 @@
-html, body {
+html {
 	width: 100vw;
 	height: 100vh;
 	padding: 0;
 	margin: 0;
-	background: #1c1c1c;
-	color: #ddd;
 }
 
-.container {
-	width: 100vw;
-	height: 100vh;
+body {
 	padding: 1em;
+	padding-right: 0;
+	margin: 0;
+	background: #1c1c1c;
+	color: #ddd;
+	font-size: 1em;
+}
+
+
+.container, .content {
+	padding: 0.2em;
+	padding-right: 0;
+	border: 2px solid #111;
+	border-right: none;
+}
+
+.content {
+	margin: 0.2em;
+	margin-left: 1em;
+	margin-right: 0;
+}
+
+.dropdown {
+	padding: 0.2em;
+	padding-right: 0;
+	display: flex;
+	align-items: center;
+	cursor: pointer;
+	transition: color 0.2s;
+}
+
+.dropdown:hover {
+	background: #111;
+}
+
+.dropdown:active {
+	background: #ddd;
+	color: #111;
+}
+
+.dropdown::before {
+	content: "+";
+	height: 1em;
+	width: 1em;
+	margin-right: 0.2em;
+	background: #111;
+	color: #ddd;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
 }
