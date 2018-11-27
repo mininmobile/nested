@@ -1,4 +1,12 @@
+class thing {
+	constructor(name, children) {
+		things[name] = children;
+	}
+}
+
 let container = document.getElementById("container");
+
+let things = {};
 
 { //init
 	let main = getDropdown();
@@ -11,22 +19,14 @@ function getDropdown(type = "universe") {
 
 	dropdown.innerText = type;
 
-	switch (type) {
-		case "universe": {
-			dropdown.addEventListener("click", () => {
-				addDropdown(dropdown, starr("galactic supercluster", 5));
-			});
-		} break;
-
-		case "galactic supercluster": {
-			dropdown.addEventListener("click", () => {
-				addDropdown(dropdown, starr("galaxy", 5));
-			});
-		} break;
-
-		default: {
-			throw new Error(`Invalid dropdown type: "${type}"`);
-		}
+	if (things[type]) {
+		dropdown.addEventListener("click", () => {
+			addDropdown(dropdown, parse(things[type]));
+		});
+	} else {
+		// lol epic
+		function up() { return `Invalid type: "${type}"`; }
+		throw up();
 	}
 
 	return dropdown;
@@ -49,6 +49,22 @@ function addDropdown(parent, types) {
 	parent.parentElement.insertBefore(parent.cloneNode(true), parent);
 	parent.parentElement.insertBefore(content, parent);
 	parent.remove();
+}
+
+function parse(childlist) {
+	// parse child list eg. [["toe", 10], ["eye", 2]] --> ["toe", "toe", "toe"... "eye", "eye"]
+	// or random amount eh. [["ball", 10, 1]] --> [list of 1 to 10 "ball"s]
+	let result = [];
+
+	childlist.forEach((item) => {
+		if (item[2]) {
+			result = jarr(result, starr(item[0], random(item[1], item[2])));
+		} else {
+			result = jarr(result, starr(item[0], item[1]));
+		}
+	});
+
+	return result;
 }
 
 /**
