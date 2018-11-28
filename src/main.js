@@ -4,14 +4,8 @@ class thing {
 	}
 }
 
-let container = document.getElementById("container");
-
+let container;
 let things = {};
-
-{ //init
-	let main = getDropdown();
-	container.appendChild(main);
-}
 
 function getDropdown(type = "universe") {
 	let dropdown = document.createElement("div");
@@ -32,6 +26,25 @@ function getDropdown(type = "universe") {
 	return dropdown;
 }
 
+{ // create things
+	new thing("universe", [["galactic supercluster", 20]]);
+	new thing("galactic supercluster", [["galaxy", 20, 5]]);
+	new thing("galaxy", [["galactic center", 1], ["arm", 6, 2]]);
+	new thing("galactic center", [["black hole", 1], ["star system", 30, 20]]);
+	new thing("arm", [["star system", 30, 20], ["nebula", 10, 3]]);
+	new thing("nebula", ["this is going to be complicated"]);
+	new thing("star system", ["this is going to be complicated"]);
+	new thing("black hole", [["inside the black hole", 1]]);
+	new thing("inside the black hole", [["white hole", 1]]);
+	new thing("white hole", [["universe", 1]]);
+}
+
+{ //init
+	let container = document.getElementById("container");
+
+	let main = getDropdown();
+	container.appendChild(main);
+}
 
 /**
  * @param {HTMLElement} parent
