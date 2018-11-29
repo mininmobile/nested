@@ -36,6 +36,10 @@ body {
 	margin-right: 0;
 }
 
+.content.closed {
+	display: none;
+}
+
 .dropdown {
 	padding: 0 0.1em;
 	padding-right: 0;

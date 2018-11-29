@@ -5,24 +5,32 @@ class thing {
 }
 
 let container;
+let uid = 0;
 let things = {};
 
 function getDropdown(type = "universe") {
 	let dropdown = document.createElement("div");
 	dropdown.classList.add("dropdown");
-
+	dropdown.id = `${uid}-dropdown`;
 	dropdown.innerText = type;
 
-	if (things[type]) {
-		dropdown.addEventListener("click", () => {
-			addDropdown(dropdown, parse(things[type]));
-		});
-	} else {
-		// lol epic
-		function up() { return `Invalid type: "${type}"`; }
-		throw up();
+	dropdown.onclick = () => {
+		if (things[type]) {
+			let child = document.getElementById(`${getUID(dropdown)}-content`);
+			let me = document.getElementById(`${getUID(dropdown)}-dropdown`);
+			if (child) {
+				me.classList.toggle("expanded");
+				child.classList.toggle("closed");
+			} else {
+				dropdown.classList.add("expanded");
+				addDropdown(dropdown, parse(things[type]));
+			}
+		} else {
+			throw new Error(`Invalid type: "${type}"`);
+		}
 	}
 
+	uid++;
 	return dropdown;
 }
 
@@ -53,15 +61,18 @@ function getDropdown(type = "universe") {
 function addDropdown(parent, types) {
 	let content = document.createElement("div");
 	content.classList.add("content");
+	content.id = `${getUID(parent)}-content`;
 
 	types.forEach((type) => {
 		let dropdown = getDropdown(type);
 		content.appendChild(dropdown);
 	});
 
-	parent.parentElement.insertBefore(parent.cloneNode(true), parent);
+	let newparent = parent.parentElement.insertBefore(parent.cloneNode(true), parent);
 	parent.parentElement.insertBefore(content, parent);
 	parent.remove();
+
+	newparent.onclick = parent.onclick;
 }
 
 function parse(childlist) {
@@ -102,6 +113,15 @@ function jarr() {
 	});
 
 	return joint;
+}
+
+
+/**
+ * @param {HTMLElement} element
+ * @returns
+ */
+function getUID(element) {
+	return parseInt(element.id.split("-")[0]);
 }
 
 /**
